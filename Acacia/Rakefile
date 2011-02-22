@@ -1,0 +1,46 @@
+# Rakefile for this web app        -*- ruby -*-
+
+BASE_PATH = File.dirname(__FILE__)
+LIB_DIR =  File.join(BASE_PATH, "WEB-INF", "lib")
+GEM_PATH = File.join(LIB_DIR, "jruby", "1.8")
+JRUBY_JAR = File.join(LIB_DIR, "jruby-complete.jar")
+JAVA_OPT = "-Xmx500m"
+
+namespace :bundler do
+  desc 'Install Bundler'
+  task :bundler_install do
+    sh "java -jar #{JRUBY_JAR} -S gem install bundler --no-ri --no-rdoc -i #{LIB_DIR}/jruby/1.8"
+  end
+
+  desc 'Initialize Gemfile'
+  task :init => :bundler_install do
+    Dir.chdir(LIB_DIR)
+    sh "export GEM_PATH=#{GEM_PATH}; java #{JAVA_OPT} -jar #{JRUBY_JAR} -S #{GEM_PATH}/bin/bundle init"
+  end
+end
+
+namespace :rails do
+  desc 'Install Rails'
+  task :install do
+    sh "export GEM_PATH=#{GEM_PATH}; java #{JAVA_OPT} -jar #{JRUBY_JAR} -S #{GEM_PATH}/bin/bundle install --gemfile=#{LIB_DIR}/Gemfile --path=#{LIB_DIR}"
+  end
+
+  desc 'Info'
+  task :info do
+    sh "export GEM_PATH=#{GEM_PATH}; java #{JAVA_OPT} -jar #{JRUBY_JAR} -S #{GEM_PATH}/bin/rails -v"
+  end
+
+  desc 'Generate Rails App'
+  task :generate do
+    ARGV.shift
+    RAILS_HOME = File.join(LIB_DIR, ARGV.shift)
+    sh "export GEM_PATH=#{GEM_PATH}; java #{JAVA_OPT} -jar #{JRUBY_JAR} -S #{GEM_PATH}/bin/rails new #{RAILS_HOME} --template http://jruby.org"
+  end
+
+  desc 'Install App Gems'
+  task :install_app_gems do
+    ARGV.shift
+    RAILS_HOME = File.join(LIB_DIR, ARGV.shift)
+    sh "export GEM_PATH=#{GEM_PATH}; java #{JAVA_OPT} -jar #{JRUBY_JAR} -S #{GEM_PATH}/bin/bundle install --gemfile=#{RAILS_HOME}/Gemfile --path=#{LIB_DIR}"
+  end
+end

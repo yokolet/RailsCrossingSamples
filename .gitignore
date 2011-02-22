@@ -1,0 +1,13 @@
+Spruce
+Sycamore
+Acacia/nbproject
+Acacia/WEB-INF/classes
+Acacia/WEB-INF/lib/jruby
+Acacia/WEB-INF/lib/jruby-complete.jar
+Acacia/WEB-INF/lib/scala-library.jar
+Acacia/WEB-INF/lib/acacia/.bundle
+Acacia/WEB-INF/lib/acacia/.gitignore
+Acacia/WEB-INF/lib/acacia/db/*.sqlite3
+Acacia/WEB-INF/lib/acacia/log/*.log
+Acacia/WEB-INF/lib/acacia/tmp/
+Acacia/WEB-INF/src/java/com/servletgarden/acacia/CheckOutServlet.java

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Acacia" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Acacia.</description>
+    <property name="scala.home" value="/Users/yoko/Tools/scala-2.8.1.final"/>
+    <property name="tomcat.home" value="/Users/yoko/Tools/apache-tomcat-7.0.4"/>
+    <property name="src.dir" value="${basedir}/WEB-INF/src/java"/>
+    <property name="classes.dir" value="${basedir}/WEB-INF/classes"/>
+    
+    <path id="scala.build.classpath">
+      <pathelement location="${basedir}/WEB-INF/lib/scala-library.jar" />
+      <pathelement location="${tomcat.home}/lib/servlet-api.jar" />
+      <pathelement location="${basedir}/WEB-INF/lib/RailsCrossing.jar" />
+      <pathelement location="${basedir}/WEB-INF/lib/jruby-complete.jar" />
+    </path>
+    
+    <taskdef resource="scala/tools/ant/antlib.xml">
+      <classpath>
+        <pathelement location="${scala.home}/lib/scala-compiler.jar" />
+        <pathelement location="${basedir}/WEB-INF/lib/scala-library.jar" />
+      </classpath>
+    </taskdef>
+    
+    <target name="compile">
+      <scalac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="scala.build.classpath">
+        <include name="**/*.scala" />
+      </scalac>
+      <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="scala.build.classpath">
+        <include name="**/*.java" />
+      </javac>
+    </target>
+</project>

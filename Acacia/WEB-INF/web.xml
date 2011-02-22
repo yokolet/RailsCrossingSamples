@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <servlet>
+    <servlet-name>CrossingDefaultServlet</servlet-name>
+    <servlet-class>com.servletgarden.railsxing.CrossingDefaultServlet</servlet-class>
+    <init-param>
+      <param-name>rails_path</param-name>
+      <param-value>/lib/acacia</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RailsHook</servlet-name>
+    <servlet-class>com.servletgarden.acacia.RailsScalaServlet</servlet-class>
+    <init-param>
+      <param-name>rails_path</param-name>
+      <param-value>/lib/acacia</param-value>
+    </init-param>
+    <init-param>
+      <param-name>gem_path</param-name>
+      <param-value>/lib/jruby/1.8</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CrossingDefaultServlet</servlet-name>
+    <url-pattern>*.html</url-pattern>
+    <url-pattern>*.css</url-pattern>
+    <url-pattern>*.js</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RailsHook</servlet-name>
+    <url-pattern>/home/*</url-pattern>
+    <url-pattern>/users/*</url-pattern>
+  </servlet-mapping>
+  
+  <session-config>
+    <session-timeout>
+            30
+    </session-timeout>
+  </session-config>
+  
+</web-app>
